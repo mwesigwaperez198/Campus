@@ -1,0 +1,17 @@
+{
+    "cmake.sourceDirectory": "C:/Users/Mwesigwa Perez/Desktop/New folder (2)/Python Project/rolling stone/flutter 1/campus_connect/.flutter-sdk/examples/api/windows",
+    "sqltools.connections": [
+        {
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "database": "Campus_connect",
+            "name": "PostgreSQL 18",
+            "username": "postgres",
+            "connectionTimeout": 30
+        }
+    ],
+    "git.ignoreLimitWarning": true
+}
