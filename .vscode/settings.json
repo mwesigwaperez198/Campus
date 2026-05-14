@@ -1,5 +1,5 @@
 {
-    "cmake.sourceDirectory": "C:/Users/Mwesigwa Perez/Desktop/New folder (2)/Python Project/rolling stone/flutter 1/campus_connect/.flutter-sdk/examples/api/windows",
+    "cmake.sourceDirectory": "C:/campus_connect/.flutter-sdk/examples/api/windows",
     "sqltools.connections": [
         {
             "ssh": "Disabled",
@@ -13,5 +13,6 @@
             "connectionTimeout": 30
         }
     ],
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "python-envs.defaultEnvManager": "ms-python.python:system"
 }

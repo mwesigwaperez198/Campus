@@ -1,25 +1,32 @@
 name: campus_connect
-description: A new Flutter project for Campus Connect.
+description: "Novara Project 001 - Makerere Campus Connect"
 publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.0 <4.0.0' # Updated for Dart 3 compatibility
+  sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.8 # Updated to latest
-  supabase_flutter: ^2.6.0 # Added based on your project goals
+  cupertino_icons: 1.0.8
+  supabase_flutter: 2.6.0
+  intl: 0.19.0
+  image_picker: ^1.1.2
+  path: ^1.9.0
+  video_player: ^2.11.1
+  http: ^1.6.0
+  flutter_dotenv: ^5.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^6.0.0 # Added for modern best practices
+  flutter_lints: 3.0.0
 
 flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/Novara logo.jpeg
-    - assets/images/Makerere University Logo PNG Vector (PDF) Free Download.jpeg
+    - assets/images/image_ab0d8768.png
+    - assets/images/makerere_logo.jpeg
+    - .env
