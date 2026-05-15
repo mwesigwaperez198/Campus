@@ -41,10 +41,30 @@ class _FeedScreenState extends State<FeedScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFF7F9FC),
       appBar: AppBar(
-        title: const Text(
-          "CampusConnect",
-          style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF0D47A1), fontSize: 24),
+        titleSpacing: 12,
+        title: Row(
+          children: [
+            Container(
+              width: 32,
+              height: 32,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: LinearGradient(
+                  colors: [Color(0xFFFFB300), Color(0xFFE91E63), Color(0xFF0D47A1)],
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                ),
+              ),
+              child: const Icon(Icons.school, color: Colors.white, size: 18),
+            ),
+            const SizedBox(width: 9),
+            const Text(
+              "CampusConnect",
+              style: TextStyle(fontWeight: FontWeight.w900, color: Color(0xFF0D47A1), fontSize: 23),
+            ),
+          ],
         ),
         actions: [
           IconButton(
@@ -57,7 +77,9 @@ class _FeedScreenState extends State<FeedScreen> {
           IconButton(icon: const Icon(Icons.chat_bubble_outline), onPressed: () {}),
         ],
         backgroundColor: Colors.white,
-        elevation: 0.5,
+        surfaceTintColor: Colors.white,
+        elevation: 0,
+        shadowColor: Colors.black12,
       ),
       body: RefreshIndicator(
         onRefresh: () async => setState(() {}),
@@ -65,11 +87,27 @@ class _FeedScreenState extends State<FeedScreen> {
           child: Column(
             children: [
               // Stories Bar
-              SizedBox(
-                height: 115,
+              Container(
+                height: 116,
+                color: Colors.white,
                 child: FutureBuilder<List<Map<String, dynamic>>>(
                   future: _dbService.getStories(),
                   builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        itemCount: 6,
+                        itemBuilder: (context, index) {
+                          return StoryCircle(
+                            name: index == 0 ? "Add Story" : "Campus",
+                            isMe: index == 0,
+                            onTap: index == 0 ? _pickAndUploadStory : () {},
+                          );
+                        },
+                      );
+                    }
+
                     final stories = snapshot.data ?? [];
                     return ListView.builder(
                       scrollDirection: Axis.horizontal,
@@ -84,11 +122,13 @@ class _FeedScreenState extends State<FeedScreen> {
                           );
                         }
                         final story = stories[index - 1];
+                        final profile = story['profiles'] as Map<String, dynamic>?;
+                        final name = profile?['full_name'] as String? ?? 'Campus';
                         return StoryCircle(
-                          imageUrl: story['content_url'],
-                          name: story['profiles']['full_name'],
+                          imageUrl: story['content_url'] as String?,
+                          name: name,
                           onTap: () {
-                            _viewStory(story['content_url'], story['profiles']['full_name']);
+                            _viewStory(story['content_url'] as String, name);
                           },
                         );
                       },
@@ -96,14 +136,22 @@ class _FeedScreenState extends State<FeedScreen> {
                   },
                 ),
               ),
-              const Divider(height: 1),
+              const Divider(height: 1, color: Color(0xFFE8ECF2)),
               
               // Post Feed
               FutureBuilder<List<PostModel>>(
                 future: _dbService.getFeed(type: 'standard'),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: Padding(padding: EdgeInsets.all(40), child: CircularProgressIndicator()));
+                    return const Center(
+                      child: Padding(
+                        padding: EdgeInsets.all(40),
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      ),
+                    );
+                  }
+                  if (snapshot.hasError) {
+                    return _buildFeedError(snapshot.error.toString());
                   }
                   if (!snapshot.hasData || snapshot.data!.isEmpty) {
                     return _buildEmptyFeed();
@@ -162,12 +210,58 @@ class _FeedScreenState extends State<FeedScreen> {
         padding: const EdgeInsets.all(40.0),
         child: Column(
           children: [
-            Icon(Icons.feed_outlined, size: 80, color: Colors.grey[300]),
+            Container(
+              width: 86,
+              height: 86,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Color(0xFFEAF1FB),
+              ),
+              child: Icon(Icons.feed_outlined, size: 44, color: Colors.grey[500]),
+            ),
             const SizedBox(height: 16),
-            const Text("Welcome to Makerere Connect!", style: TextStyle(fontWeight: FontWeight.bold)),
-            const Text("Posts from your community will appear here.", textAlign: TextAlign.center),
+            const Text(
+              "Welcome to Makerere Connect!",
+              style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
+            ),
+            const SizedBox(height: 6),
+            Text(
+              "Posts from your campus community will appear here.",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.grey[600]),
+            ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildFeedError(String error) {
+    return Padding(
+      padding: const EdgeInsets.all(32),
+      child: Column(
+        children: [
+          const Icon(Icons.wifi_off_outlined, size: 48, color: Color(0xFF0D47A1)),
+          const SizedBox(height: 14),
+          const Text(
+            "Couldn't load the feed",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            error,
+            textAlign: TextAlign.center,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(color: Colors.grey[600], fontSize: 13),
+          ),
+          const SizedBox(height: 14),
+          TextButton.icon(
+            onPressed: () => setState(() {}),
+            icon: const Icon(Icons.refresh),
+            label: const Text("Try again"),
+          ),
+        ],
       ),
     );
   }
