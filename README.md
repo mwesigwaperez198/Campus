@@ -31,5 +31,33 @@ flutter run \
   --dart-define=SUPABASE_URL=your_project_url \
   --dart-define=SUPABASE_ANON_KEY=your_anon_key
 ```
+## EXPECTED FLOW AND ACTIONS
+Based on the current app, the expected flow should be:
+
+Splash screen
+The app opens with the Campus Connect / Makerere branding first.
+
+Auth choice screen
+After splash, it should take you to login/register choices if you are not already signed in.
+
+Login / Register
+Users create an account or log in through Supabase.
+
+Main app
+After login, it opens Campus Connect experience:
+
+Feed with stories at the top
+Post cards styled like Instagram
+Create post button
+Reels
+Groups
+Messages
+Events
+Directory / Explore
+Profile / Settings
+The feed UI Will now feel more polished: campus-branded top bar, gradient story/
+profile rings, square post images, like/save buttons, double-tap heart animation, loading/
+error states, and cleaner empty states
+
 
 When keys are not provided, the app falls back to local demo auth so UI development can continue.
