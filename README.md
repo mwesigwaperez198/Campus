@@ -32,25 +32,26 @@ flutter run \
   --dart-define=SUPABASE_ANON_KEY=your_anon_key
 ```
 When keys are not provided, the app falls back to local demo auth so UI development can continue.
-USING AN EMULATOR TO OPEN THE APP
+
+## USING AN EMULATOR TO OPEN THE APP:
 An APK is not opened like a normal file on Windows. It must be installed on an Android phone.
 
-Do this:
+## Do this:
 
-Copy this file to your phone:
+-Copy this file to your phone:
 
 >>>>Path: campus_connect\build\app\outputs\flutter-apk\app-release.apk
->>>> 
-On your phone, open Files / File Manager.
 
-Tap app-release.apk.
+-On your phone, open Files / File Manager.
 
-If Android blocks it, enable:
+-Tap app-release.apk.
+
+## If Android blocks it, enable:
 
 In settings >> Enable Install unknown apps
 for your file manager or browser.
 
-Tap Install.
+Tap Install:
 >>If you want to test from the computer directly with a USB-connected Android phone, run:<<
 ```bash
 adb install -r build\app\outputs\flutter-apk\app-release.apk
@@ -58,33 +59,33 @@ adb install -r build\app\outputs\flutter-apk\app-release.apk
 If Windows says “unsupported format,” that is normal. Windows cannot run APK files directly unless you use an Android emulator
 
 
-## EXPECTED FLOW AND ACTIONS
+## EXPECTED FLOW AND ACTIONS:
 Based on the current app, the expected flow should be:
 
 Splash screen
 The app opens with the Campus Connect / Customized branding first for any institution.
 
-Auth choice screen
+## Auth choice screen
 After splash, it should take you to login/register choices if you are not already signed in.
 
-Login / Register
+## Login / Register
 Users create an account or log in through Supabase.
 
-Main app
+## Main app
 After login, it opens Campus Connect experience:
 
-Feed with stories at the top
-Post cards styled like Instagram
-Create post button
-Reels
-Groups
-Messages
-Events
-Directory / Explore
-Profile / Settings
-The feed UI Will now feel more polished: campus-branded top bar, gradient story/
+>Feed with stories at the top
+>Post cards styled like Instagram
+>Create post button
+>Reels
+>Groups
+>Messages
+>Events
+>Directory / Explore
+>Profile / Settings
+## The feed UI Will now feel more polished: campus-branded top bar, gradient story/
 profile rings, square post images, like/save buttons, double-tap heart animation, loading/
 error states, and cleaner empty states
 
-ENJOY THE FIRST INSTITUTIONAL APP FEELING IN UGANDA
+## ENJOY THE FIRST INSTITUTIONAL APP FEELING IN UGANDA ##
 
